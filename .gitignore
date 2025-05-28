@@ -1,0 +1,10 @@
+/app/tinyllama_1b_BASE/
+/app/modelo_sena/
+/app/modelo_sena - Copia/
+/app/tinyllama_1b_BASE/*
+/app/modelo_sena/*
+/app/modelo_sena - Copia/*
+/app/__pycache__/*
+*.safetensors
+*.bin
+*.pt

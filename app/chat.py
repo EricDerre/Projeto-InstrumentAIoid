@@ -1,61 +1,27 @@
-import requests
-import json
-from app.persona import DESCRICAO
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
+import torch
 
-OLLAMA_API_URL = "http://localhost:11434/api/generate"
+# Caminho para seu modelo treinado
+MODEL_PATH = "./modelo_sena"  # ajuste o path se necessário
 
-def carregar_descricao():
-    return DESCRICAO.strip()
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_PATH,
+    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+    device_map="auto"  # usa GPU se disponível
+)
 
-memoria_conversa = []
+def gerar_resposta(prompt):
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        outputs = model.generate(**inputs, max_new_tokens=128, streamer=TextStreamer(tokenizer))
+    resposta = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return resposta[len(prompt):].strip()
 
-def atualizar_memoria(usuario: str, ia: str):
-    # Adiciona o novo par de mensagens
-    memoria_conversa.append({"role": "user", "content": usuario})
-    memoria_conversa.append({"role": "ia", "content": ia})
-
-    # Mantém só os últimos 6 elementos (3 pares)
-    while len(memoria_conversa) > 6:
-        memoria_conversa.pop(0)
-
-
-def stream_resposta_do_ollama(mensagem_usuario: str):
-    prompt_base = carregar_descricao()
-
-    # Montar histórico textual da memória RAM
-    historico = ""
-    for msg in memoria_conversa:
-        if msg["role"] == "user":
-            historico += f"Usuário: {msg['content']}\n"
-        elif msg["role"] == "ia":
-            historico += f"Sena: {msg['content']}\n"
-
-    # Montar o prompt final (alma + histórico + nova pergunta)
-    prompt_final = (
-        f"{prompt_base}\n\n"
-        f"{historico}"
-        f"Usuário: {mensagem_usuario}\n"
-        f"Sena:"
-    )
-
-    payload = {
-        "model": "mistral",
-        "prompt": prompt_final,
-        "stream": True
-    }
-
-    resposta = requests.post(OLLAMA_API_URL, json=payload, stream=True)
-
-    resposta_ia = ""
-    for linha in resposta.iter_lines():
-        if linha:
-            try:
-                data = json.loads(linha.decode("utf-8"))
-                parte = data["response"]
-                resposta_ia += parte
-                yield parte
-            except Exception as e:
-                yield f"[Erro de parsing: {str(e)}]"
-
-    # Atualiza a memória após a resposta completa
-    atualizar_memoria(mensagem_usuario, resposta_ia.strip())
+if __name__ == "__main__":
+    while True:
+        prompt = input("Você: ")
+        if prompt.lower() in ['sair', 'exit', 'quit']:
+            break
+        resposta = gerar_resposta(prompt)
+        print("Sena:", resposta)
