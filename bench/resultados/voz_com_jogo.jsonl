@@ -1,0 +1,5 @@
+{"cenario": "com_jogo", "peca": "tts_kokoro", "voz": "pf_dora", "audio_s": 6.4, "tempo_s": 2.75, "rtf": 0.43}
+{"cenario": "com_jogo", "peca": "tts_kokoro", "voz": "pm_alex", "audio_s": 6.38, "tempo_s": 2.62, "rtf": 0.41}
+{"cenario": "com_jogo", "peca": "tts_piper", "voz": "faber", "audio_s": 6.66, "tempo_s": 0.42, "rtf": 0.062}
+{"cenario": "com_jogo", "peca": "stt_whisper_base_int8", "audio_s": 6.4, "tempo_s": 1.01, "rtf": 0.158, "texto": "Oi eu sou Astofo, hoje a gente vai jogar um pouquinho e depois quem sabe tocar uma  música juntos, preparado."}
+{"cenario": "com_jogo", "peca": "stt_whisper_small_int8", "audio_s": 6.4, "tempo_s": 2.88, "rtf": 0.45, "texto": "Oi, eu sou Astolfo. Hoje a gente vai jogar um pouquinho e depois, quem sabe, tocar uma  música juntos. Preparado."}

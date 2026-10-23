@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./build/**)",
+      "Read(./dist/**)",
+      "Read(./*.exe)",
+      "Read(./models/**)",
+      "Read(./**/*.pth)",
+      "Read(./**/*.onnx)",
+      "Read(./**/*.gguf)",
+      "Read(./**/*.safetensors)",
+      "Read(./**/*.wav)"
+    ]
+  }
+}

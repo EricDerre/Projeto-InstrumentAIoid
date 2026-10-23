@@ -1,0 +1,8 @@
+# Pesados e regeneráveis: o setup.ps1 recria tudo isto
+.venv/
+python/
+uv-cache/
+applio/
+modelos/
+audio/
+*.log

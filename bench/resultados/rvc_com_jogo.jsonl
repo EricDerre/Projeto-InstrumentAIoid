@@ -1,0 +1,4 @@
+{"cenario": "com_jogo", "peca": "rvc_astolfoV3", "dispositivo": "gpu", "f0": "rmvpe", "cuda": true, "audio_s": 6.4, "primeira_s": 42.52, "quente_s_mediana": 3.45, "rtf_quente": 0.538, "vram_pico_torch_mb": 1267, "vram_delta_nvsmi_mb": 1007}
+{"cenario": "com_jogo", "peca": "rvc_astolfoV3", "dispositivo": "gpu", "f0": "fcpe", "cuda": true, "audio_s": 6.4, "primeira_s": 3.92, "quente_s_mediana": 3.08, "rtf_quente": 0.481, "vram_pico_torch_mb": 1309, "vram_delta_nvsmi_mb": 66}
+{"cenario": "com_jogo", "peca": "rvc_astolfoV3", "dispositivo": "cpu", "f0": "rmvpe", "cuda": false, "audio_s": 6.4, "primeira_s": 22.21, "quente_s_mediana": 9.89, "rtf_quente": 1.545, "vram_pico_torch_mb": 0, "vram_delta_nvsmi_mb": 0}
+{"cenario": "com_jogo", "peca": "rvc_astolfoV3", "dispositivo": "cpu", "f0": "fcpe", "cuda": false, "audio_s": 6.4, "primeira_s": 9.52, "quente_s_mediana": 9.27, "rtf_quente": 1.449, "vram_pico_torch_mb": 0, "vram_delta_nvsmi_mb": 4}

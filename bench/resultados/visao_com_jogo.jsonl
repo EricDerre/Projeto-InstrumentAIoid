@@ -1,0 +1,9 @@
+{"cenario": "com_jogo", "peca": "captura_dxcam_1080p", "ms_por_quadro_mediana": 7.9, "quadros_por_s_obtidos": 120.5, "alvo_fps": 120}
+{"cenario": "com_jogo", "peca": "yolo26n_320", "backend": "cpu_onnx", "providers_ativos": ["CPUExecutionProvider"], "ms_mediana": 12.41, "ms_p90": 13.43}
+{"cenario": "com_jogo", "peca": "yolo26n_320", "backend": "directml_dev0", "providers_ativos": ["DmlExecutionProvider"], "ms_mediana": 10.16, "ms_p90": 12.13}
+{"cenario": "com_jogo", "peca": "yolo26n_320", "backend": "directml_dev1", "providers_ativos": ["DmlExecutionProvider"], "ms_mediana": 18.6, "ms_p90": 21.57}
+{"cenario": "com_jogo", "peca": "yolo26n_320", "backend": "cuda_torch_fp32", "gpu": "NVIDIA GeForce GTX 1650", "ms_mediana": 47.95, "ms_p90": 55.92, "vram_reservada_mb": 68}
+{"cenario": "com_jogo", "peca": "yolo26n_640", "backend": "cpu_onnx", "providers_ativos": ["CPUExecutionProvider"], "ms_mediana": 52.61, "ms_p90": 56.73}
+{"cenario": "com_jogo", "peca": "yolo26n_640", "backend": "directml_dev0", "providers_ativos": ["DmlExecutionProvider"], "ms_mediana": 28.25, "ms_p90": 30.65}
+{"cenario": "com_jogo", "peca": "yolo26n_640", "backend": "directml_dev1", "providers_ativos": ["DmlExecutionProvider"], "ms_mediana": 41.87, "ms_p90": 48.88}
+{"cenario": "com_jogo", "peca": "yolo26n_640", "backend": "cuda_torch_fp32", "gpu": "NVIDIA GeForce GTX 1650", "ms_mediana": 48.0, "ms_p90": 56.67, "vram_reservada_mb": 88}

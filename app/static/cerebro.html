@@ -1,0 +1,191 @@
+<!-- ! Alteração de IA - Revisar: arquivo novo inteiro. -->
+<!-- ! Motivo: painel que mostra ao vivo a IA central chamando os módulos (grafo + log), sem bibliotecas externas para rodar offline. -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cérebro do InstrumentAIoid</title>
+<style>
+  :root {
+    --fundo: #0f1117;
+    --painel: #171a23;
+    --borda: #2a2f3d;
+    --texto: #e6e8ef;
+    --suave: #8b91a3;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--fundo);
+    color: var(--texto);
+    font: 14px/1.4 system-ui, "Segoe UI", sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 12px;
+    padding: 12px;
+  }
+  #grafo {
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+  aside {
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  aside h1 { font-size: 16px; margin: 0; padding: 12px 14px 4px; }
+  #status { color: var(--suave); padding: 0 14px 10px; border-bottom: 1px solid var(--borda); }
+  #log { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; }
+  #log li { padding: 8px 14px; border-bottom: 1px solid var(--borda); }
+  .linha1 { display: flex; justify-content: space-between; gap: 8px; }
+  .rota { font-weight: 600; }
+  .hora { color: var(--suave); font-variant-numeric: tabular-nums; }
+  .resumo { color: var(--suave); word-break: break-word; }
+  .no circle { fill: var(--fundo); stroke: var(--borda); stroke-width: 2; transition: stroke .3s; }
+  .no text { fill: var(--texto); text-anchor: middle; font-size: 13px; }
+  .no .contador { fill: var(--suave); font-size: 11px; }
+  .no { transition: opacity .4s; }
+  .ligacao { stroke: var(--borda); stroke-width: 1.5; }
+  @media (max-width: 800px) {
+    body { grid-template-columns: 1fr; grid-template-rows: 60vh auto; height: auto; }
+    aside { max-height: 60vh; }
+  }
+</style>
+</head>
+<body>
+<svg id="grafo" viewBox="-400 -300 800 600" preserveAspectRatio="xMidYMid meet">
+  <g id="ligacoes"></g>
+  <g id="nos"></g>
+  <g id="bolinhas"></g>
+</svg>
+<aside>
+  <h1>Cérebro da IA central</h1>
+  <div id="status">conectando…</div>
+  <ul id="log"></ul>
+</aside>
+<script>
+  const CORES = { pedido: "#4da3ff", resposta: "#3ecf8e", erro: "#ff5c6c", estado: "#c9a2ff" };
+  const PREVISTOS = ["usuario", "llm", "voz", "instrumentos", "visao", "avatar", "jogo"];
+  const LOG_MAX = 200;
+  const SVG = "http://www.w3.org/2000/svg";
+
+  const gLigacoes = document.getElementById("ligacoes");
+  const gNos = document.getElementById("nos");
+  const gBolinhas = document.getElementById("bolinhas");
+  const status = document.getElementById("status");
+  const log = document.getElementById("log");
+
+  // nome -> { g, circulo, contador, ligacao, x, y, eventos, ativo, timer }
+  const nos = new Map();
+
+  function criar(tag, attrs, pai) {
+    const el = document.createElementNS(SVG, tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    if (pai) pai.appendChild(el);
+    return el;
+  }
+
+  function adicionarNo(nome) {
+    if (nos.has(nome)) return nos.get(nome);
+    const central = nome === "central";
+    const g = criar("g", { class: "no" }, gNos);
+    const circulo = criar("circle", { r: central ? 56 : 40 }, g);
+    const rotulo = criar("text", { y: 4 }, g);
+    rotulo.textContent = nome;
+    const contador = criar("text", { class: "contador", y: 20 }, g);
+    const ligacao = central ? null : criar("line", { class: "ligacao" }, gLigacoes);
+    const no = { g, circulo, contador, ligacao, x: 0, y: 0, eventos: 0, ativo: central, timer: null };
+    g.style.opacity = central ? 1 : 0.35;
+    nos.set(nome, no);
+    redistribuir();
+    return no;
+  }
+
+  function redistribuir() {
+    const outros = [...nos.keys()].filter(n => n !== "central");
+    outros.forEach((nome, i) => {
+      const ang = -Math.PI / 2 + (2 * Math.PI * i) / outros.length;
+      const no = nos.get(nome);
+      no.x = 230 * Math.cos(ang);
+      no.y = 210 * Math.sin(ang);
+      no.g.setAttribute("transform", `translate(${no.x} ${no.y})`);
+      no.ligacao.setAttribute("x1", 0);
+      no.ligacao.setAttribute("y1", 0);
+      no.ligacao.setAttribute("x2", no.x);
+      no.ligacao.setAttribute("y2", no.y);
+    });
+  }
+
+  function acender(no, cor) {
+    no.ativo = true;
+    no.g.style.opacity = 1;
+    no.circulo.style.stroke = cor;
+    clearTimeout(no.timer);
+    no.timer = setTimeout(() => { no.circulo.style.stroke = ""; }, 1200);
+  }
+
+  function animarBolinha(de, para, cor) {
+    const b = criar("circle", { r: 7, fill: cor }, gBolinhas);
+    const t0 = performance.now();
+    function passo(agora) {
+      const p = Math.min((agora - t0) / 700, 1);
+      b.setAttribute("cx", de.x + (para.x - de.x) * p);
+      b.setAttribute("cy", de.y + (para.y - de.y) * p);
+      if (p < 1) requestAnimationFrame(passo);
+      else b.remove();
+    }
+    requestAnimationFrame(passo);
+  }
+
+  function registrarLog(ev, cor) {
+    const li = document.createElement("li");
+    const linha1 = document.createElement("div");
+    linha1.className = "linha1";
+    const rota = document.createElement("span");
+    rota.className = "rota";
+    rota.style.color = cor;
+    rota.textContent = `${ev.origem} → ${ev.destino} · ${ev.tipo}`;
+    const hora = document.createElement("span");
+    hora.className = "hora";
+    hora.textContent = new Date((ev.t || Date.now() / 1000) * 1000).toLocaleTimeString("pt-BR");
+    linha1.append(rota, hora);
+    const resumo = document.createElement("div");
+    resumo.className = "resumo";
+    resumo.textContent = ev.resumo || "";
+    li.append(linha1, resumo);
+    log.prepend(li);
+    while (log.children.length > LOG_MAX) log.lastChild.remove();
+  }
+
+  function receber(ev) {
+    const origem = adicionarNo(String(ev.origem));
+    const destino = adicionarNo(String(ev.destino));
+    const cor = CORES[ev.tipo] || CORES.estado;
+    animarBolinha(origem, destino, cor);
+    acender(origem, cor);
+    acender(destino, cor);
+    destino.eventos += 1;
+    destino.contador.textContent = destino.eventos === 1 ? "1 evento" : `${destino.eventos} eventos`;
+    registrarLog(ev, cor);
+  }
+
+  adicionarNo("central");
+  PREVISTOS.forEach(adicionarNo);
+
+  const fonte = new EventSource("/cerebro/eventos");
+  fonte.onopen = () => { status.textContent = "conectado · esperando eventos"; };
+  fonte.onerror = () => { status.textContent = "sem conexão com a API (tentando de novo)"; };
+  fonte.onmessage = (m) => {
+    try { receber(JSON.parse(m.data)); } catch (e) { console.error("evento inválido", e); }
+  };
+</script>
+</body>
+</html>

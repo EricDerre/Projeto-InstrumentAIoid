@@ -1,0 +1,3 @@
+# ! Alteração de IA - Revisar: arquivo novo inteiro.
+# ! Motivo: separar as dependências das ferramentas de apoio das do app principal.
+netron>=9.3

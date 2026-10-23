@@ -1,0 +1,19 @@
+{"peca": "llm qwen3:1.7b", "config": "cpu ctx4096", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 1514, "ram_livre_sistema_mb": 4741}
+{"peca": "llm qwen3:1.7b", "config": "cpu ctx2048", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 1652, "ram_livre_sistema_mb": 4883}
+{"peca": "llm qwen3:1.7b", "config": "cpu ctx4096 sem mmap", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 1789, "ram_livre_sistema_mb": 4751}
+{"peca": "llm llama3.2:3b", "config": "cpu ctx4096", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 2431, "ram_livre_sistema_mb": 4104}
+{"peca": "llm llama3.2:3b", "config": "cpu ctx2048", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 1972, "ram_livre_sistema_mb": 4794}
+{"peca": "llm llama3.2:3b", "config": "cpu ctx4096 sem mmap", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 2560, "ram_livre_sistema_mb": 4389}
+{"peca": "llm qwen3:4b-instruct", "config": "cpu ctx4096", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 2888, "ram_livre_sistema_mb": 3566}
+{"peca": "llm qwen3:4b-instruct", "config": "cpu ctx2048", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 2612, "ram_livre_sistema_mb": 3975}
+{"peca": "llm qwen3:4b-instruct", "config": "cpu ctx4096 sem mmap", "privada_mb": 0, "working_set_mb": 0, "queda_ram_livre_mb": 3010, "ram_livre_sistema_mb": 3685}
+{"peca": "tts piper faber", "privada_mb": 585, "working_set_mb": 112, "ram_livre_sistema_mb": 6398}
+{"peca": "tts kokoro", "privada_mb": 394, "working_set_mb": 367, "ram_livre_sistema_mb": 6092}
+{"peca": "stt whisper base int8", "privada_mb": 179, "working_set_mb": 145, "ram_livre_sistema_mb": 5945}
+{"peca": "stt whisper small int8", "privada_mb": 175, "working_set_mb": 173, "ram_livre_sistema_mb": 5767}
+{"peca": "yolo26n 320 directml radeon", "privada_mb": 82, "working_set_mb": 71, "ram_livre_sistema_mb": 5972}
+{"peca": "rvc astolfoV3 gpu (processo inteiro)", "so_python": {"privada_mb": 10, "working_set_mb": 18}, "depois_imports_torch": {"privada_mb": 3792, "working_set_mb": 652}, "carregado_e_convertido": {"privada_mb": 6137, "working_set_mb": 1891}, "ram_livre_sistema_mb": 5593}
+{"peca": "rvc astolfoV3 gpu (processo inteiro)", "motor": "torch", "quente_s": 0.79, "so_python": {"privada_mb": 10, "working_set_mb": 18}, "depois_imports_torch": {"privada_mb": 3794, "working_set_mb": 653}, "carregado_e_convertido": {"privada_mb": 7471, "working_set_mb": 2177}, "ram_livre_sistema_mb": 3227}
+{"peca": "embed nomic-embed-text", "dim": 768, "ms_por_memoria": 30.9, "ms_por_consulta": 43.9, "acerto_top1": "2/6", "privada_mb": 407, "working_set_mb": 290}
+{"peca": "embed embeddinggemma", "dim": 768, "ms_por_memoria": 21.9, "ms_por_consulta": 41.5, "acerto_top1": "5/6", "privada_mb": 761, "working_set_mb": 648}
+{"peca": "embed qwen3-embedding:0.6b", "dim": 1024, "ms_por_memoria": 83.2, "ms_por_consulta": 81.9, "acerto_top1": "5/6", "privada_mb": 1281, "working_set_mb": 1114}

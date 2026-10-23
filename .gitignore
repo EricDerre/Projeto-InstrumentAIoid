@@ -1,0 +1,33 @@
+# ! Alteração de IA - Revisar: arquivo novo inteiro.
+# ! Motivo: tirar do Git os arquivos gerados e os pesos de modelo, que são grandes
+# e mudam a cada build. Atenção: build/ e instrumentaloid.exe já estão no repo;
+# para pararem de ser versionados é preciso rodar "git rm -r --cached build instrumentaloid.exe".
+
+# Saída do PyInstaller
+build/
+dist/
+*.exe
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Pesos de modelo (RVC, ONNX, GGUF, safetensors). Guardar no Drive, não no Git.
+models/
+*.pth
+*.onnx
+*.gguf
+*.safetensors
+*.index
+
+# Áudio gerado pelos módulos (UVR5, RVC, síntese)
+saida/
+*.wav
+*.flac
+
+# Configuração local do Claude Code (a de projeto, .claude/settings.json, fica no Git)
+.claude/settings.local.json

@@ -1,0 +1,7 @@
+# ! Alteração de IA - Revisar: arquivo novo inteiro.
+# ! Motivo: quando o codebase-memory-mcp for instalado, ele não deve indexar código de terceiros
+# (o clone do Applio em bench/applio tem milhares de arquivos) nem artefatos de build.
+bench/applio/
+build/
+dist/
+models/

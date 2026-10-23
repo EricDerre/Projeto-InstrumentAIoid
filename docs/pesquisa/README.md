@@ -7,7 +7,16 @@ Pesquisa feita em 6 a 9 de outubro de 2026 para orientar o InstrumentAIoid: a id
 | Arquivo | O que é |
 | --- | --- |
 | `relatorio-vocaloids-e-instrumentos-2026-10.md` | Relatório principal, em português: apps de voz cantada, vozes famosas, o que dá para fazer de graça, integração com Cubase/FL Studio/REAPER e o caminho técnico do projeto. Comece por ele. |
+| `hardware-e-modelos-locais-2026-10.md` | Capacidade do notebook (Ryzen 7 5800H, GTX 1650 4 GB, 16 GB), o que cabe nele e o benchmark medido (LLM, voz, RVC astolfoV3, visão) sem jogo e com Warcraft III aberto. Scripts em `bench/`. |
 | `notas-detalhadas-en/` | Notas de pesquisa completas, em inglês, com todas as fontes. Servem para aprofundar um assunto do relatório. |
+| `tcc/` | Pesquisas trazidas do TCC: LLM local em CPU, quantização, saída estruturada, memória, RAG, colibri. Ler `tcc/README.md` primeiro: diz o que muda nesta máquina. |
+| `brainiac-e-colibri-2026-10.md` | Como ver o "cérebro" da IA: o que o colibri mostra e cabe aqui, os projetos chamados brainiac e a proposta de painel em três camadas. |
+| `ram-quantizacao-e-memoria-2026-10.md` | Como fazer tudo caber nos 16 GB: RAM medida por módulo, quantização (Q3_K_M x Q4_K_M, cache KV, mmap), memória da persona com RAG (embeddinggemma + BM25) e plano de memória do modo Jogando. |
+<!-- ! Alteração de IA - Revisar: linha de ram-quantizacao-e-memoria-2026-10.md na tabela acima, 23/10/2026.
+     ! Também: linha de hardware-e-modelos-locais-2026-10.md agora cita o benchmark e a pasta bench/.
+     ! Motivo: o relatório novo de RAM, quantização e RAG precisa aparecer no índice de pesquisas. -->
+<!-- ! Alteração de IA - Revisar: duas linhas novas na tabela acima (tcc/ e brainiac-e-colibri-2026-10.md), 23/10/2026.
+     ! Motivo: as pesquisas novas precisam aparecer no índice que o CLAUDE.md manda ler primeiro; sem isso o Claude Code e o Eric não as encontram. -->
 
 ### Notas detalhadas
 
