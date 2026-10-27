@@ -1,0 +1,47 @@
+[
+ {
+  "frase": 0,
+  "audio_s": 2.22,
+  "tempo_s": 1.38,
+  "rtf": 0.62
+ },
+ {
+  "frase": 1,
+  "audio_s": 1.62,
+  "tempo_s": 0.93,
+  "rtf": 0.575
+ },
+ {
+  "frase": 2,
+  "audio_s": 6.36,
+  "tempo_s": 4.14,
+  "rtf": 0.652
+ },
+ {
+  "frase": 3,
+  "audio_s": 1.43,
+  "tempo_s": 0.82,
+  "rtf": 0.57
+ },
+ {
+  "frase": 4,
+  "audio_s": 2.0,
+  "tempo_s": 1.14,
+  "rtf": 0.572
+ },
+ {
+  "frase": 5,
+  "audio_s": 2.04,
+  "tempo_s": 1.2,
+  "rtf": 0.589
+ },
+ {
+  "frase": 6,
+  "audio_s": 2.45,
+  "tempo_s": 1.5,
+  "rtf": 0.612
+ },
+ {
+  "vram_pico_mb": 2319
+ }
+]

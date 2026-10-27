@@ -1,0 +1,15 @@
+{
+ "tom": 12,
+ "tempos_s": {
+  "v0_atual": 12.67,
+  "v1a_tom8": 3.52,
+  "v1b_tom12": 3.51,
+  "v1c_tom15": 3.59,
+  "v2_tom_faixa": 3.68,
+  "v3_tom_faixa_entonacao": 3.97,
+  "v4_entonacao_sobe": 3.7,
+  "v5_v3_index060": 3.51,
+  "v6_v3_protect050": 3.45,
+  "v7_piper_entonacao": 3.48
+ }
+}

@@ -1,4 +1,5 @@
 <!-- ! Alteração de IA - Revisar: arquivo criado em 23/10/2026 (pesquisa de hardware e modelos locais + benchmark medido nesta máquina).
+     ! Também (23/10, tarde): título da seção 8.1 avisa que a persona real é a SennAI (o Astolfo é só a voz RVC).
      ! Motivo: o Eric pediu para medir a capacidade da máquina e achar modelos e otimizações que rodem junto com um jogo; os números da seção 8 saem dos scripts de bench/. -->
 # Hardware e modelos locais — o que cabe no notebook do Eric (outubro de 2026)
 
@@ -187,7 +188,7 @@ O Windows não tem um "MPS" da NVIDIA para dividir a GPU entre processos, então
 
 Medido nesta máquina com os scripts de `bench/` (rodar de novo com `bench\rodar_tudo.ps1 <cenario>`). Dois cenários: **sem jogo** (só o desktop, ~825 MB de VRAM ocupados) e **com Warcraft III aberto** (GPU a 95–98% de uso, ~1,7 GB de VRAM, ~49 W, 59 °C, e só ~1 GB de RAM livre no início). Estes números substituem as estimativas das seções 3 a 6.
 
-### 8.1 LLM (Ollama 0.40.8, Q4_K_M, `num_ctx` 4096, resposta de até 80 tokens, persona da Astolfo)
+### 8.1 LLM (Ollama 0.40.8, Q4_K_M, `num_ctx` 4096, resposta de até 80 tokens, persona de teste chamada "Astolfo"; a persona real se chama SennAI)
 
 | Modelo | Onde | Geração sem jogo | Geração com jogo | Resposta (mediana) sem / com jogo |
 |---|---|---|---|---|

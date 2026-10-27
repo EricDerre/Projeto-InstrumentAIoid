@@ -1,4 +1,5 @@
 <!-- ! Alteração de IA - Revisar: arquivo criado em 23/10/2026 (pesquisa e medição de RAM, quantização e RAG/memória da persona).
+     ! Também (23/10, tarde): a persona se chama SennAI; "Astolfo" é só o modelo de voz RVC. Trocado o nome nas seções 4 e 5 e apontado o script comparar_persona.py.
      ! Motivo: o Eric não pode aumentar a RAM agora e pediu para continuar as pesquisas de otimização, quantização e RAG; os números saem de bench/bench_ram*.py e bench/bench_embed.py. -->
 # Caber nos 16 GB: RAM, quantização e memória da persona (outubro de 2026)
 
@@ -118,7 +119,7 @@ O que a pesquisa diz, somando o TCC e fontes de 2026:
 
 - **4 bits (Q4_K_M) é praticamente sem perda** em modelos grandes. Em 55 quantizações do Qwen3.6 27B, Q4_K_M ficou indistinguível do original; Q8_0 bateu o token mais provável do BF16 em 99,3% das vezes **[fonte: Quesma, jul/2026]**.
 - **3 bits é instável e depende da receita:** no mesmo estudo, Q3_K_M marcou 73,3% no AIME-120 (o original marcou 70,8%), mas Q3_K_S caiu para 54,2%. A queda acompanha a divergência KL em relação ao original: abaixo de 0,05 ficou perto do original, acima de 0,08 caiu sempre **[fonte: Quesma]**.
-- **O que se perde primeiro é conhecimento factual** (trivia), não código nem forma **[fonte: Quesma, ago/2026]**. Para a Astolfo isso pesa pouco, porque o que ela precisa saber vem da memória recuperada (RAG), não dos pesos.
+- **O que se perde primeiro é conhecimento factual** (trivia), não código nem forma **[fonte: Quesma, ago/2026]**. Para a SennAI isso pesa pouco, porque o que ela precisa saber vem da memória recuperada (RAG), não dos pesos.
 - **Modelos pequenos sofrem mais:** a 4 bits, o Llama-3.2-1B perde 10,1 pontos (GPTQ) e 16 pontos em seguir instruções, enquanto o 3B perde só 1,8 **[fonte: Lee et al., IJCAI 2025, via TCC]**. Modelos pequenos treinados com muitos dados (Qwen) são os mais expostos **[fonte: Ouyang et al., ACL 2025, via TCC]**.
 - **2 bits: perda clara** em todos os testes **[fonte: Quesma]**.
 - **Na CPU, evitar os quants "I" (IQ3, IQ4_XS):** o prefill cai pela metade **[fonte: Kawrakow 2024, via TCC]**.
@@ -131,7 +132,7 @@ Na prática:
 | 4B (qwen3-instruct) | Q4_K_M | não achei tag Q3 oficial no Ollama; Q3 de terceiros precisa de teste |
 | 1–2B | Q4_K_M ou Q8_0, nunca Q3 | os pequenos degradam mais |
 
-**Teste de qualidade que falta:** 20–30 falas da Astolfo comparando Q4_K_M e Q3_K_M lado a lado, julgadas pelo Eric (o que importa é a persona, não um benchmark). O script `bench_llm.py` já serve de base.
+**Teste de qualidade:** 25 falas da SennAI comparando Q4_K_M e Q3_K_M às cegas, julgadas pelo Eric (o que importa é a persona, não um benchmark). Script `bench/comparar_persona.py`; respostas em `bench/resultados/persona_avaliacao.md` e chave em `persona_chave.json`.
 
 ---
 
@@ -140,7 +141,7 @@ Na prática:
 ### 5.1 O que o TCC já ensinou e vale aqui
 
 - **Recuperar os 3 mais relevantes ganha de "tudo no prompt"** em modelos pequenos, e o meio de um contexto longo é onde o modelo mais erra (*lost in the middle*) **[fonte: TCC, §6.3]**.
-- **O modelo segue memória errada:** no TCC, documentação errada foi seguida em 93–96% dos casos **[medido no TCC]**, e em modelos grandes passa de 60% **[fonte: ClashEval, via TCC]**. Toda memória que a Astolfo escrever sobre o Eric precisa passar por **validação em código** antes de entrar (formato, tamanho, não contradizer o que já existe, nunca apagar sozinha).
+- **O modelo segue memória errada:** no TCC, documentação errada foi seguida em 93–96% dos casos **[medido no TCC]**, e em modelos grandes passa de 60% **[fonte: ClashEval, via TCC]**. Toda memória que a SennAI escrever sobre o Eric precisa passar por **validação em código** antes de entrar (formato, tamanho, não contradizer o que já existe, nunca apagar sozinha).
 - **Cache de prefixo:** o Ollama reaproveita o começo igual do prompt **[medido no TCC]**. A ordem precisa ser: **persona fixa → memórias recuperadas → histórico recente → fala nova**. Se a memória vier antes da persona, o cache da persona se perde a cada fala.
 - **Pedaços inteiros, sem fatiar:** cada memória é uma frase ou um parágrafo curto, indexado inteiro **[fonte: TCC, §6.12.3]**.
 
@@ -157,7 +158,7 @@ No TCC, o BM25 ganhava porque a busca era por vocabulário técnico (nomes de ca
 
 | Tipo | Exemplo | Quando entra no prompt |
 |---|---|---|
-| Persona (fixa) | quem a Astolfo é, jeito de falar | sempre, no começo (fica no cache) |
+| Persona (fixa) | quem a SennAI é, jeito de falar | sempre, no começo (fica no cache) |
 | Fatos do usuário | "o Eric toca guitarra" | top-3 por busca híbrida |
 | Episódios | "ontem perdemos 3 partidas seguidas no Warcraft" | top-2, com data |
 | Estado do jogo | "vida 40%, 3 inimigos à direita" (vem do YOLO) | só no modo Jogando, no fim do prompt |
